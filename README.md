@@ -10,15 +10,13 @@ Para clonar el repositorio, sigue estos pasos:
 Abre tu terminal.
 Ejecuta el siguiente comando:
 bash
-Copy code
+```bash
 git clone https://github.com/RicardoColladoRothschild/RepositoryPatron.git
-Abrir el Proyecto en IntelliJ IDEA<a name="abrir-el-proyecto-en-intellij-idea"></a>
+```
+
+Abrir el Proyecto en IntelliJ IDEA
 Para abrir el proyecto en IntelliJ IDEA, sigue estos pasos:
 
-Abre IntelliJ IDEA.
-Selecciona "File" en la barra de menú.
-Haz clic en "Open" y navega hasta la ubicación donde clonaste el repositorio.
-Selecciona el directorio del proyecto y haz clic en "Open".
 
 ## Estructura del Proyecto
 El proyecto sigue una estructura básica de paquetes que separa las diferentes partes de la aplicación:
@@ -28,7 +26,7 @@ repository: Contiene las clases encargadas de interactuar con la base de datos.
 util: Contiene clases de utilidad, como la clase de conexión a la base de datos.
 view: Contiene la interfaz de usuario de la aplicación, implementada con Java Swing.
 Explicación del Código<a name="explicación-del-código"></a>
-Modelo (Model)<a name="modelo-model"></a>
+Modelo (Model)
 En el paquete org.corecode.model, encontrarás la clase Expenses, que representa un gasto. Esta clase tiene atributos como amount (cantidad), category (categoría), description (descripción), etc.
 
 ## Repositorio (Repository)
@@ -48,3 +46,10 @@ La base de datos no ha sido incluida, en su lugar un archivo docker-compose
 que sube el motor de base de datos y crea la base de datos.
 Tambien hay un archivo init.sql que va a crear las tablas de la DB y colocar
 una primera insercion para que la tabla no este vacia.
+
+Desde la carpaeta del proyecto para subir el contenedor (teniendo docker desptop)
+
+```bash
+docker-compose.yml up
+```
+PD: Tambien agregue pgAdmin
