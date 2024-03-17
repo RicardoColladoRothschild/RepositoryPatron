@@ -15,7 +15,8 @@ public class Main {
 
 
         System.out.println("Starting app");
-            try(Connection conn = DataBaseConnection.getInstance();){
+            try{
+                Connection conn = DataBaseConnection.getInstance();
                 System.out.println("Stablished connection to db");
                 IRepository<Expenses> repository = new ExpensesRepository();
                 System.out.println("Getting repository");

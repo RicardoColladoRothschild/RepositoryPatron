@@ -17,9 +17,9 @@ public class ExpensesRepository implements IRepository<Expenses>{
     public List<Expenses> findAll() throws SQLException {
             List<Expenses> expensesList = new ArrayList<>();
         
-        try(Statement statement = getConnection().createStatement();
+        try{
+            Statement statement = getConnection().createStatement();
             ResultSet resultset = statement.executeQuery("SELECT * FROM \"Expenses\"");
-        ){
             while(resultset.next()){
                 expensesList.add(createdExpense(resultset));
 
@@ -37,27 +37,31 @@ public class ExpensesRepository implements IRepository<Expenses>{
     public Expenses getById(Integer id) {
         Expenses expense = null;
 
-            try(PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM \"Expenses\" WHERE \"Id\"= ?")){
-                statement.setInt(1,id);
+        try {
+            PreparedStatement statement = getConnection().prepareStatement("SELECT * FROM \"Expenses\" WHERE \"Id\"= ?");
+            statement.setInt(1, id);
 
-                try(ResultSet resultset = statement.executeQuery()){
-                    if(resultset.next()){
-                            expense = createdExpense(resultset);
-                    }
+
+                ResultSet resultset = statement.executeQuery();
+                if (resultset.next()) {
+                    expense = createdExpense(resultset);
                 }
+
             } catch (SQLException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);
             }
 
-        return expense;
-    }
+            return expense;
+        }
 
-    @Override
-    public void save(Expenses expense) {
+        @Override
+        public void save (Expenses expense){
 
-            try(PreparedStatement statement = getConnection().prepareStatement("INSERT INTO public.\"Expenses\" (\"Id\", \"Amount\", \"Category\", \"Description\", \"CreatedAt\", \"InvoiceUrl\", \"UpdatedAt\") VALUES(?,?,?,?,?,?,?)")){
 
+            try {
+                System.out.println("PREPARINGSTATEMENT FOR SAVE EXPENSE");
+                PreparedStatement statement = getConnection().prepareStatement("INSERT INTO public.\"Expenses\" (\"Id\", \"Amount\", \"Category\", \"Description\", \"CreatedAt\", \"InvoiceUrl\", \"UpdatedAt\") VALUES(?,?,?,?,?,?,?)");
                 statement.setInt(1, expense.getId());
                 statement.setInt(2, expense.getAmount());
                 statement.setString(3, expense.getCategory());
@@ -66,21 +70,23 @@ public class ExpensesRepository implements IRepository<Expenses>{
                 statement.setString(6, expense.getInvoiceUrl());
                 statement.setTimestamp(7, expense.getUpdatedAt());
 
-                    int rowsAffected = statement.executeUpdate();
+                System.out.println("statement.exequteUpdate() on saving");
+                int rowsAffected = statement.executeUpdate();
 
-                        if(rowsAffected > 0){
-                            System.out.println("Expense was created.");
-                        }
-            } catch (
-                    SQLException e) {
+                if (rowsAffected > 0) {
+                    System.out.println("Expense was created.");
+                }
+            } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-    }
+        }
+
 
     @Override
     public void delete(Integer id) {
 
-        try(PreparedStatement stamt = getConnection().prepareStatement("DELETE FROM \"Expenses\" WHERE \"Id\"=?")){
+        try{
+            PreparedStatement stamt = getConnection().prepareStatement("DELETE FROM \"Expenses\" WHERE \"Id\"=?");
             stamt.setInt(1, id);
             stamt.executeUpdate();
         }catch(SQLException sql){
@@ -95,12 +101,16 @@ public class ExpensesRepository implements IRepository<Expenses>{
                         System.out.println("Could not found id, nothing was updated");
                         return null;
                     }
-                    try(Statement statement = getConnection().createStatement()){
+                    try{
+                        Statement statement = getConnection().createStatement();
                         int rowsAffected = statement.executeUpdate(query);
                             if(rowsAffected > 0){
                                 System.out.println("*******Updated was completed********");
                         }
-                    }catch(SQLException sql){System.out.println(sql.toString());}
+                    }catch(SQLException sql){
+
+                        System.out.println("Issue at 113 / ExpenseRepository"+sql.toString());
+                    }
 
         return this.getById(id);
     }

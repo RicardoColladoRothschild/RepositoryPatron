@@ -4,6 +4,7 @@ package org.corecode.view;
 import org.corecode.model.Expenses;
 import org.corecode.repository.ExpensesRepository;
 import org.corecode.repository.IRepository;
+import org.corecode.util.DataBaseConnection;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -56,6 +57,7 @@ public class SwingApp extends JFrame {
                 addBtn.addActionListener(event->{
                     try{
                         agregarExpense();
+                        System.out.println("Agregado");
                     }catch(SQLException sql){System.out.println(sql.toString());}
                 });
 
