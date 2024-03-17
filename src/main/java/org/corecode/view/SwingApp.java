@@ -38,6 +38,17 @@ public class SwingApp extends JFrame {
                 buttonPanel.add(deleteBtn);
                 add(buttonPanel, BorderLayout.SOUTH);
 
+            addBtn.setBackground(new Color(46, 204, 113));
+            addBtn.setForeground(Color.WHITE);
+            addBtn.setFocusPainted(false);
+
+            updateBtn.setBackground(new Color(52, 152, 219));
+            updateBtn.setForeground(Color.WHITE);
+            updateBtn.setFocusPainted(false);
+
+            deleteBtn.setBackground(new Color(231, 76, 60));
+            deleteBtn.setForeground(Color.WHITE);
+            deleteBtn.setFocusPainted(false);
                 expensesRepository = new ExpensesRepository();
 
                 refreshExpensesTable();
@@ -49,7 +60,7 @@ public class SwingApp extends JFrame {
                 });
 
                 updateBtn.addActionListener(event->updateExpense());
-                deleteBtn.addActionListener(event->deleteExpense());
+                //deleteBtn.addActionListener(event->deleteExpense());
 
         }
 

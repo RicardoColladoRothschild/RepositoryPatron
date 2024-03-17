@@ -4,6 +4,7 @@ import org.corecode.model.Expenses;
 import org.corecode.repository.ExpensesRepository;
 import org.corecode.repository.IRepository;
 import org.corecode.util.DataBaseConnection;
+import org.corecode.view.SwingApp;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -36,8 +37,10 @@ public class Main {
 
                 //Deleting Expense
 
-                    repository.delete(6);
-                    repository.findAll().forEach(System.out::println);
+                    /*repository.delete(6);
+                    repository.findAll().forEach(System.out::println);*/
+                SwingApp app = new SwingApp();
+                app.setVisible(true);
             }catch(SQLException sql){
                 System.out.println(sql.toString());
             }

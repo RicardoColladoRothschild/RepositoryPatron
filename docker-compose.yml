@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      - POSTGRES_DB=OkaneDev
+      - POSTGRES_USER=rick
+      - POSTGRES_PASSWORD=admin123
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@mail.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - 5050:80
